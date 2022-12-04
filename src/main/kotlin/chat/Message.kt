@@ -1,9 +1,9 @@
 package chat
 
-data class Message(
-    val messageId: Int, //Идентификатор сообщения
-    val senderId: Int, //Идентификатор отправителя
+data class Message (
     val text: String,
-    var isDeleted: Boolean = false, //Удалено сообщение или нет
-    var isUnread: Boolean = true, //Прочитано сообщение или нет
+    var read: Boolean,
+    var delete: Boolean,
+    var isUnread: Boolean = true,
+    var isDeleted: Boolean = true
 )
