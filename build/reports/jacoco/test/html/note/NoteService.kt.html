@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NoteService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">oop_hw</a> &gt; <a href="index.source.html" class="el_package">note</a> &gt; <span class="el_source">NoteService.kt</span></div><h1>NoteService.kt</h1><pre class="source lang-java linenums">package note
+
+import exceptions.*
+import Comment
+
+object NoteService {
+<span class="fc" id="L7">    private var notes = mutableListOf&lt;Note&gt;() //Р�Р·РјРµРЅСЏРµРјС‹Р№ СЃРїРёСЃРѕРє РґР»СЏ С…СЂР°РЅРµРЅРёСЏ Р·Р°РїРёСЃРµР№</span>
+    private var nextId = 0 //Р”Р»СЏ РЅСѓРјРµСЂР°С†РёРё Р·Р°РїРёСЃРµР№ РІ РјР°СЃСЃРёРІРµ
+
+    fun add(note: Note): Note { //РЎРѕР·РґР°С‘С‚ РЅРѕРІСѓСЋ Р·Р°РјРµС‚РєСѓ Сѓ С‚РµРєСѓС‰РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+<span class="fc" id="L11">        notes += note.copy(id = ++nextId) //Р”РѕР±Р°РІР»СЏРµС‚ РІ СЃРїРёСЃРѕРє notes РЅРѕРІСѓСЋ Р·Р°РїРёСЃСЊ, РїСЂРёСЃРІР°РёРІР°РµС‚ РµР№ id</span>
+<span class="fc" id="L12">        return notes.last() //Р’РѕР·РІСЂР°С‰Р°РµС‚ РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚ СЃРїРёСЃРєР° notes</span>
+    }
+
+    fun createComment(noteId: Int, comment: Comment): Comment { //Р”РѕР±Р°РІР»СЏРµС‚ РЅРѕРІС‹Р№ РєРѕРјРјРµРЅС‚Р°СЂРёР№ Рє Р·Р°РјРµС‚РєРµ
+<span class="pc bpc" id="L16" title="1 of 10 branches missed.">        val note = notes.find {it.id == noteId &amp;&amp; !it.isDeleted} ?: throw NoteNotFoundException(&quot;No note with $noteId&quot;)</span>
+<span class="fc" id="L17">        note.comments += comment.copy(id =  ++nextId)</span>
+<span class="fc" id="L18">        return note.comments.last()</span>
+    }
+
+    fun delete(noteId: Int): Boolean { //РЈРґР°Р»СЏРµС‚ Р·Р°РјРµС‚РєСѓ С‚РµРєСѓС‰РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+<span class="fc bfc" id="L22" title="All 10 branches covered.">        val note = notes.find {it.id == noteId &amp;&amp; !it.isDeleted} ?: throw NoteNotFoundException(&quot;No note with $noteId&quot;)</span>
+<span class="fc" id="L23">        note.isDeleted = true</span>
+<span class="fc" id="L24">        return true</span>
+    }
+
+    fun deleteComment(noteId: Int, commentId: Int): Boolean { //РЈРґР°Р»СЏРµС‚ РєРѕРјРјРµРЅС‚Р°СЂРёР№ Рє Р·Р°РјРµС‚РєРµ
+<span class="pc bpc" id="L28" title="3 of 10 branches missed.">        val note = notes.find {it.id == noteId &amp;&amp; !it.isDeleted} ?: throw NoteNotFoundException(&quot;No note with $noteId&quot;)</span>
+<span class="fc bfc" id="L29" title="All 10 branches covered.">        val comment = note.comments.find {it.id == commentId &amp;&amp; !it.isDeleted} ?: throw CommentNotFoundException(&quot;No comment with $commentId&quot;)</span>
+<span class="fc" id="L30">        comment.isDeleted = true</span>
+<span class="fc" id="L31">        return true</span>
+    }
+
+    fun edit(noteId: Int, note: Note): Boolean { //Р РµРґР°РєС‚РёСЂСѓРµС‚ Р·Р°РјРµС‚РєСѓ С‚РµРєСѓС‰РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+<span class="pc bpc" id="L35" title="1 of 10 branches missed.">        val thisNote = notes.find {it.id == noteId &amp;&amp; !it.isDeleted} ?: throw NoteNotFoundException(&quot;No note with $noteId&quot;)</span>
+<span class="fc" id="L36">        notes[notes.indexOf(thisNote)] = note.copy(</span>
+<span class="fc" id="L37">            id = thisNote.id,</span>
+<span class="fc" id="L38">            ownerId = thisNote.ownerId,</span>
+<span class="fc" id="L39">            date = thisNote.date</span>
+        )
+<span class="fc" id="L41">        return true</span>
+    }
+
+    fun editComment(noteId: Int, commentId: Int, comment: Comment): Boolean { //Р РµРґР°РєС‚РёСЂСѓРµС‚ СѓРєР°Р·Р°РЅРЅС‹Р№ РєРѕРјРјРµРЅС‚Р°СЂРёР№ Сѓ Р·Р°РјРµС‚РєРё
+<span class="pc bpc" id="L45" title="1 of 10 branches missed.">        val note = notes.find {it.id == noteId &amp;&amp; !it.isDeleted} ?: throw NoteNotFoundException(&quot;No note with $noteId&quot;)</span>
+<span class="pc bpc" id="L46" title="1 of 10 branches missed.">        val thisComment = note.comments.find{it.id == commentId &amp;&amp; !it.isDeleted} ?: throw CommentNotFoundException(&quot;No comment with $commentId&quot;)</span>
+<span class="fc" id="L47">        note.comments[note.comments.indexOf(thisComment)] = comment.copy(</span>
+<span class="fc" id="L48">            id = thisComment.id,</span>
+<span class="fc" id="L49">            ownerId = thisComment.ownerId,</span>
+<span class="fc" id="L50">            date = thisComment.date</span>
+        )
+<span class="fc" id="L52">        return true</span>
+    }
+
+<span class="fc" id="L55">    fun get() = notes //Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃРїРёСЃРѕРє Р·Р°РјРµС‚РѕРє, СЃРѕР·РґР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј</span>
+
+    fun getById(noteId: Int) = //Р’РѕР·РІСЂР°С‰Р°РµС‚ Р·Р°РјРµС‚РєСѓ РїРѕ РµС‘ id
+<span class="pc bpc" id="L58" title="1 of 10 branches missed.">        notes.find{it.id == noteId &amp;&amp; !it.isDeleted} ?: throw NoteNotFoundException(&quot;No note with $noteId&quot;)</span>
+
+    fun getComments(noteId: Int): MutableList&lt;Comment&gt; { //Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃРїРёСЃРѕРє РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ Рє Р·Р°РјРµС‚РєРµ
+<span class="pc bpc" id="L61" title="1 of 10 branches missed.">        val note = notes.find{it.id == noteId &amp;&amp; !it.isDeleted} ?: throw NoteNotFoundException(&quot;No note with $noteId&quot;)</span>
+<span class="fc" id="L62">        return note.comments</span>
+    }
+
+    fun restoreComment(noteId: Int, commentId: Int): Boolean { //Р’РѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ СѓРґР°Р»С‘РЅРЅС‹Р№ РєРѕРјРјРµРЅС‚Р°СЂРёР№
+<span class="pc bpc" id="L66" title="1 of 10 branches missed.">        val note = notes.find {it.id == noteId &amp;&amp; !it.isDeleted} ?: throw NoteNotFoundException(&quot;No note with $noteId&quot;)</span>
+<span class="pc bpc" id="L67" title="5 of 10 branches missed.">        val comment = note.comments.find{it.id == commentId &amp;&amp; it.isDeleted} ?: throw CommentNotFoundException(&quot;No comment with $commentId&quot;)</span>
+<span class="fc" id="L68">        return true</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="WallServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2022-12-04T18:55:58" hostname="DESKTOP-DF5EQ1H" time="0.015">
+  <properties/>
+  <testcase name="testAdd" classname="WallServiceTest" time="0.012"/>
+  <testcase name="testUpdateTrue" classname="WallServiceTest" time="0.0"/>
+  <testcase name="updateFalse" classname="WallServiceTest" time="0.001"/>
+  <testcase name="addMultiple" classname="WallServiceTest" time="0.001"/>
+  <system-out><![CDATA[Post(id=1, ownerId=0, fromId=0, createdBy=0, date=1670180158, text=Message, replyOwnerId=0, replyPostId=0, friendsOnly=true, comment=Comment(id=0, fromId=0, date=1670180158, text=Comment text, replyToUser=1, replyToComment=1, ownerId=0, isDeleted=false), copyright=some text, likes=Likes(count=0, userLikes=true, canLike=true, canPublish=true), reposts=0, views=0, postType=post, postSource=null, attachments=[], geo=null, singerId=0, copyHistory=[], canPin=true, canDelete=true, canEdit=true, isPinned=true, markedAsAds=true, isFavorite=true, postponedId=1)
+
+Post(id=1, ownerId=0, fromId=0, createdBy=0, date=1670180158, text=Hello, replyOwnerId=0, replyPostId=0, friendsOnly=true, comment=Comment(id=0, fromId=0, date=1670180158, text=Comment text, replyToUser=1, replyToComment=1, ownerId=0, isDeleted=false), copyright=some_text, likes=Likes(count=0, userLikes=true, canLike=true, canPublish=true), reposts=0, views=0, postType=post, postSource=null, attachments=[], geo=null, singerId=0, copyHistory=[], canPin=true, canDelete=true, canEdit=true, isPinned=true, markedAsAds=true, isFavorite=true, postponedId=1)
+
+Post(id=1, ownerId=0, fromId=0, createdBy=0, date=1670180158, text= , replyOwnerId=0, replyPostId=0, friendsOnly=true, comment=Comment(id=0, fromId=0, date=1670180158, text=Comment text, replyToUser=1, replyToComment=1, ownerId=0, isDeleted=false), copyright=some+text, likes=Likes(count=0, userLikes=true, canLike=true, canPublish=true), reposts=0, views=0, postType=post, postSource=null, attachments=[], geo=null, singerId=0, copyHistory=[], canPin=true, canDelete=true, canEdit=true, isPinned=true, markedAsAds=true, isFavorite=true, postponedId=1)
+
+Post(id=1, ownerId=0, fromId=0, createdBy=0, date=1670180158, text= , replyOwnerId=0, replyPostId=0, friendsOnly=true, comment=Comment(id=0, fromId=0, date=1670180158, text=Comment text, replyToUser=1, replyToComment=1, ownerId=0, isDeleted=false), copyright=some, likes=Likes(count=0, userLikes=true, canLike=true, canPublish=true), reposts=0, views=0, postType=post, postSource=null, attachments=[], geo=null, singerId=0, copyHistory=[], canPin=true, canDelete=true, canEdit=true, isPinned=true, markedAsAds=true, isFavorite=true, postponedId=1)
+Post(id=2, ownerId=0, fromId=0, createdBy=0, date=1670180158, text= , replyOwnerId=0, replyPostId=0, friendsOnly=true, comment=Comment(id=0, fromId=0, date=1670180158, text=Comment text, replyToUser=1, replyToComment=1, ownerId=0, isDeleted=false), copyright=some, likes=Likes(count=0, userLikes=true, canLike=true, canPublish=true), reposts=0, views=0, postType=post, postSource=null, attachments=[], geo=null, singerId=0, copyHistory=[], canPin=true, canDelete=true, canEdit=true, isPinned=true, markedAsAds=true, isFavorite=true, postponedId=1)
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
